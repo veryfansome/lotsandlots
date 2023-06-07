@@ -2,16 +2,16 @@ package org.example.lotsandlots.etrade.auth;
 
 public class SecurityContext {
 
-    private OAuthConfig oAuthConfig;
+    private AuthConfig authConfig;
 
     private boolean initialized;
     private OAuthToken token;
 
-    public OAuthConfig getOAuthConfig() {
-        return oAuthConfig;
+    public AuthConfig getAuthConfig() {
+        return authConfig;
     }
-    public void setOAuthConfig(OAuthConfig oAuthConfig) {
-        this.oAuthConfig = oAuthConfig;
+    public void setOAuthConfig(AuthConfig authConfig) {
+        this.authConfig = authConfig;
     }
 
     public boolean isInitialized() {

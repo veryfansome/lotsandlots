@@ -67,7 +67,7 @@ public class OAuth1Helper {
         timestamp = Long.toString(System.currentTimeMillis() / 1000);
 
         Map<String, String[]> params = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
-        params.put("oauth_consumer_key", new String[] {securityContext.getOAuthConfig().getConsumerKey()});
+        params.put("oauth_consumer_key", new String[] {securityContext.getAuthConfig().getConsumerKey()});
         params.put("oauth_timestamp", new String[] {timestamp});
         params.put("oauth_nonce", new String[] {oauthNonce});
         params.put("oauth_signature_method", new String[] {oauthSigner.getSignatureMethod()});
@@ -142,7 +142,7 @@ public class OAuth1Helper {
     public void setAuthorizationHeader() throws UnsupportedEncodingException {
         MultiValueMap<String, String> requestMap = new LinkedMultiValueMap<>();
         if (securityContext.isInitialized() || message.isRequiresOauth()) {
-            requestMap.add("oauth_consumer_key", securityContext.getOAuthConfig().getConsumerKey());
+            requestMap.add("oauth_consumer_key", securityContext.getAuthConfig().getConsumerKey());
             requestMap.add("oauth_timestamp",  timestamp );
             requestMap.add("oauth_nonce", oauthNonce);
             requestMap.add("oauth_signature_method", oauthSigner.getSignatureMethod());
@@ -165,7 +165,7 @@ public class OAuth1Helper {
             }
         } else {
             //in case of quotes api call, delayed quotes will be returned
-            requestMap.add("consumerKey", securityContext.getOAuthConfig().getConsumerKey());
+            requestMap.add("consumerKey", securityContext.getAuthConfig().getConsumerKey());
         }
 
         // Format:
@@ -184,7 +184,7 @@ public class OAuth1Helper {
             }
             message.setOAuthHeader(stringBuilder.substring(0, stringBuilder.length() - 1));
         } else {
-            message.setQueryString("consumerKey=" + securityContext.getOAuthConfig().getConsumerKey());
+            message.setQueryString("consumerKey=" + securityContext.getAuthConfig().getConsumerKey());
         }
     }
 
@@ -212,10 +212,10 @@ public class OAuth1Helper {
             OAuthToken token = context.getToken();
             if (token != null) {
                 key = StringUtils.isEmpty(token.getOauthTokenSecret())
-                        ? context.getOAuthConfig().getSharedSecret() + "&"
-                        : context.getOAuthConfig().getSharedSecret() + "&" + OAuth1Helper.encode(token.getOauthTokenSecret());
+                        ? context.getAuthConfig().getSharedSecret() + "&"
+                        : context.getAuthConfig().getSharedSecret() + "&" + OAuth1Helper.encode(token.getOauthTokenSecret());
             } else {
-                key = context.getOAuthConfig().getSharedSecret() + "&";
+                key = context.getAuthConfig().getSharedSecret() + "&";
             }
             SecretKeySpec signingKey = new SecretKeySpec(key.getBytes(), HMAC_SHA1_ALGORITHM);
 
