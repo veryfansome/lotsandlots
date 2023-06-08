@@ -36,10 +36,6 @@ public class AuthConfig {
         sharedSecret = config.getString("etrade.auth.consumerSecret");
     }
 
-    public String getAccessTokenHttpMethod() {
-        return "GET";
-    }
-
     public String getAccessTokenUrl() {
         return accessTokenUrl;
     }
@@ -66,10 +62,6 @@ public class AuthConfig {
     }
     public void setConsumerKey(String consumerKey) {
         this.consumerKey = consumerKey;
-    }
-
-    public String getRequestTokenHttpMethod() {
-        return "GET";
     }
 
     public String getRequestTokenUrl() {

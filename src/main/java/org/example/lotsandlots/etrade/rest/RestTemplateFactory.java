@@ -1,29 +1,16 @@
-package org.example.lotsandlots.etrade;
+package org.example.lotsandlots.etrade.rest;
 
 import org.example.lotsandlots.etrade.api.ApiConfig;
 import org.example.lotsandlots.etrade.auth.AuthConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component("EtradeRestTemplateFactory")
 public class RestTemplateFactory {
 
     private static final Logger LOG = LoggerFactory.getLogger(RestTemplateFactory.class);
-
-    @Value("${rest.connectTimeoutMillis:3000}")
-    private int connectTimeoutMillis;
-
-    @Value("${rest.connectionRequestTimeoutMillis:3000}")
-    private int connectionRequestTimeoutMillis;
-
-    @Value("${rest.readTimeoutMillis:9000}")
-    private int readTimeoutMillis;
-
-    @Value("${rest.socketTimeoutMillis:3000}")
-    private int socketTimeoutMillis;
 
     private ApiConfig apiConfig;
     private AuthConfig authConfig;
@@ -48,10 +35,6 @@ public class RestTemplateFactory {
     }
 
     public void info() {
-        LOG.info("connectTimeoutMillis={} connectionRequestTimeoutMillis={} readTimeoutMillis={} "
-                        + "socketTimeoutMillis={}",
-                connectTimeoutMillis, connectionRequestTimeoutMillis, readTimeoutMillis,
-                socketTimeoutMillis);
         apiConfig.info();
         authConfig.info();
     }

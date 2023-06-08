@@ -7,6 +7,10 @@ public class SecurityContext {
     private boolean initialized;
     private OAuthToken token;
 
+    public SecurityContext(AuthConfig authConfig) {
+        this.authConfig = authConfig;
+    }
+
     public AuthConfig getAuthConfig() {
         return authConfig;
     }
