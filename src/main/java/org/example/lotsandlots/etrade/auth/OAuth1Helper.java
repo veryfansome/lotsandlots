@@ -24,7 +24,6 @@ import java.util.TreeMap;
 
 public class OAuth1Helper {
 
-    private static final String CALLBACK = "oob";
     private static final Logger LOG = LoggerFactory.getLogger(OAuth1Helper.class);
     private static final SecureRandom RANDOM = new SecureRandom();
     private static final BitSet WWW_FORM_URL_SAFE = new BitSet(256);
@@ -50,6 +49,9 @@ public class OAuth1Helper {
 
     private final Message message;
     private final SecurityContext securityContext;
+
+    private String callback = "oob";
+    //private String callback = "localhost:8080/api/etrade/auth";
 
     private String oauthNonce;
     private OAuthSigner oauthSigner = null;
@@ -79,7 +81,7 @@ public class OAuth1Helper {
                 params.put("oauth_verifier", new String[]{encode(message.getVerifierCode())});
             }
         } else {
-            params.put("oauth_callback", new String[] {CALLBACK});
+            params.put("oauth_callback", new String[] {callback});
             params.put("oauth_version", new String[] {"1.0"});
         }
 
@@ -154,7 +156,7 @@ public class OAuth1Helper {
                     requestMap.add("oauth_verifier", message.getVerifierCode());
                 }
             } else {
-                requestMap.add("oauth_callback", CALLBACK);
+                requestMap.add("oauth_callback", callback);
                 requestMap.add("oauth_version", "1.0");
             }
             if ( StringUtils.isNotBlank(message.getQueryString())) {

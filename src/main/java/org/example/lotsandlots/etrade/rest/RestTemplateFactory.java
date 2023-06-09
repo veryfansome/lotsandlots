@@ -2,6 +2,7 @@ package org.example.lotsandlots.etrade.rest;
 
 import org.example.lotsandlots.etrade.api.ApiConfig;
 import org.example.lotsandlots.etrade.auth.AuthConfig;
+import org.example.lotsandlots.etrade.auth.SecurityContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ public class RestTemplateFactory {
 
     private ApiConfig apiConfig;
     private AuthConfig authConfig;
+    private SecurityContext securityContext;
 
     public RestTemplateFactory() {
     }
@@ -32,6 +34,13 @@ public class RestTemplateFactory {
     @Autowired
     public void setAuthConfig(AuthConfig authConfig) {
         this.authConfig = authConfig;
+    }
+
+    public SecurityContext getSecurityContext() {
+        return securityContext;
+    }
+    public void setSecurityContext(SecurityContext securityContext) {
+        this.securityContext = securityContext;
     }
 
     public void info() {
